@@ -1,15 +1,5 @@
 import Foundation
 
-// Straight Flush
-// Four of a kind
-// Full House
-// Flush
-// Straight
-// Three of a kind
-// Two pair
-// One pair
-// High Card
-
 public class HandChecker {
     
     public var cards: [Card]!
@@ -99,17 +89,38 @@ public class HandChecker {
     /*       Initializer        */
     public init(cards: [Card]) {
         self.cards = cards
+        print(self.cards)
         self.setBestHand()
     }
     
-    /*      Set Best Hand       */
+
+    /*      Helper Methods      */
     fileprivate func setBestHand() {
+     
+        // From check from Highest Hand to Lowest Hand
         if isStraightFlush {
+            
+        } else if isFourOfAKind {
+            
+        } else if isFullHouse {
+            
+        } else if isFlush {
+            
+        } else if isStraight {
+            
+        } else if isThreeOfAkind {
+            
+        } else if isTwoPair {
+            
+        } else if isOnePair {
+            
+        } else if isHighCard {
+            
+        } else {
             
         }
     }
     
-    /*      Helper Methods      */
     fileprivate func checkForStraight(cards: [Card]) -> [Card]? {
         if (cards.count < 5) {
             return nil
