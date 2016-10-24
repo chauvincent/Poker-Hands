@@ -1,7 +1,9 @@
 import Foundation
 
+
 public extension Array {
-    // Convert string array of card rank and suit to Cards array
+
+    /* Convert string array of card rank and suit to Cards array */
     public func toCardsArray() -> [Card]? {
         var cards: [Card] = []
         let allowedRank = NSCharacterSet(charactersIn: "1234567890AJKQ")
@@ -19,10 +21,12 @@ public extension Array {
     }
 }
 
+/* Sort Card Arrays based off Rank or Suit */
 public protocol TargetType {}
 extension Array: TargetType {}
 
 public extension Collection where Self:TargetType, Iterator.Element == Card {
+
     public func sortCardsByRankAscending() -> [Card] { return sorted { l, r in l.rank.rawValue < r.rank.rawValue } }
     public func sortCardsByRankDescending() -> [Card] { return sorted { l, r in l.rank.rawValue > r.rank.rawValue } }
     public func sortCardsBySuitAscending() -> [Card] { return sorted { l, r in l.suit.hashValue < r.suit.hashValue } }

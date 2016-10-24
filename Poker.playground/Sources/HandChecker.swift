@@ -11,10 +11,12 @@ import Foundation
 // High Card
 
 public class HandChecker {
+    
     public var cards: [Card]!
     public var handName: String?
     public var bestCards: [Card]?
     
+    /*      Lazy Inits      */
     public lazy var isStraightFlush: Bool = {
         
         let onlySpades = self.cards.filter({ (card) -> Bool in card.suit == Suit.spades })
@@ -53,18 +55,65 @@ public class HandChecker {
         return false;
     }()
     
+    public lazy var isFourOfAKind: Bool = {
+        
+        return false
+    }()
     
+    public lazy var isFullHouse: Bool = {
+        
+        return false
+    }()
+    
+    public lazy var isFlush: Bool = {
+        
+        return false
+    }()
+    
+    public lazy var isStraight: Bool = {
+        
+        return false
+    }()
+    
+    public lazy var isThreeOfAkind: Bool = {
+        
+        return false
+    }()
+    
+    public lazy var isTwoPair: Bool = {
+    
+        return false
+    }()
+    
+    public lazy var isOnePair: Bool = {
+        
+        return false
+    }()
+    
+    public lazy var isHighCard: Bool = {
+        
+        return false
+    }()
+    
+    
+    /*       Initializer        */
     public init(cards: [Card]) {
         self.cards = cards
-        print(isStraightFlush)
+        self.setBestHand()
     }
     
+    /*      Set Best Hand       */
+    fileprivate func setBestHand() {
+        if isStraightFlush {
+            
+        }
+    }
     
+    /*      Helper Methods      */
     fileprivate func checkForStraight(cards: [Card]) -> [Card]? {
         if (cards.count < 5) {
             return nil
         }
-        
         var sortedCards = cards.sortCardsByRankDescending()
         var set: Set = Set<Int>()
         var bestCards: [Card] = []

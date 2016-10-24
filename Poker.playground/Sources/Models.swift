@@ -1,10 +1,6 @@
 import Foundation
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- Class Models
- 
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+/*  Suit is ranked in ascending order   */
 public enum Suit {
     case clubs
     case diamonds
@@ -22,8 +18,8 @@ public enum Suit {
     }
 }
 
+/*  Enum is ranked in ascending order    */
 public enum Rank: Int {
-    // Ranked in ascending order
     case two = 2, three, four, five, six, seven, eight, nine, ten
     case jack
     case queen
