@@ -106,17 +106,17 @@ extension Collection where Self:TargetType, Iterator.Element == Card {
 // One pair
 // High Card
 
-class Hand {
+class HandChecker {
     var cards: [Card]!
     var handName: String?
     var bestCards: [Card]?
     
     lazy var isStraightFlush: Bool = {
-        var sortedCards = self.cards.sortCardsByRankDescending()
-        let onlySpades = sortedCards.filter({ (card) -> Bool in
+
+        let onlySpades = self.cards.filter({ (card) -> Bool in
             card.suit == Suit.spades
         })
- 
+        self.checkIfCardsInorder(cards: onlySpades)
         
         
         return false;
@@ -128,15 +128,37 @@ class Hand {
         print(isStraightFlush)
     }
     
+    // Helpers
     fileprivate func checkIfCardsInorder(cards: [Card]) -> Bool
     {
         if (cards.count < 5) {
             return false
         }
-        var prev = cards.first
+        
+        var sortedCards = cards.sortCardsByRankDescending()
+        var set: Set = Set<Int>()
+        for (index, element) in sortedCards.enumerated() {
+            if index + 1 == sortedCards.count {
+                break
+            }
+            let currentRank = element.rank.rawValue
+            let nextRank = sortedCards[index + 1].rank.rawValue
+            let diff = currentRank - nextRank
+            var amount = 0
+            if diff == 1 {
+                amount += 1
+                set.insert(currentRank)
+                set.insert(nextRank)
+                if set.count == 5 {
+                    print(set)
+                    break;
+                }
+            } else {
+                set.removeAll()
+            }
+        }
 
-    
-        return true;
+        return false;
     }
     
 }
@@ -144,13 +166,12 @@ class Hand {
 func getBestHand(cardString: [String]) {
     
     guard let cards = cardString.toCardsArray() else { return }
-    
-    let hand = Hand(cards: cards)
+    let hand = HandChecker(cards: cards)
     
     
 }
 
-let straightFlush = ["A♠️", "J♠️", "Q♠️", "J♦️", "10♠️", "K♠️", "2♠️", "3♦️"]
+let straightFlush = ["J♠️", "4♠️", "J♦️", "6♠️", "K♠️", "2♠️", "3♦️", "3♠️", "5♠️","A♠️"]
 //let cards = ["8♦️", "3♠️", "5♦️", "8♣️", "J♦️", "3♦️", "2♦️"]
 
 getBestHand(cardString: straightFlush)
