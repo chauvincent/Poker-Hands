@@ -112,7 +112,12 @@ class Hand {
     var bestCards: [Card]?
     
     lazy var isStraightFlush: Bool = {
-        var sortedCards = self.cards.sortCardsBySuitDescending()
+        var sortedCards = self.cards.sortCardsByRankDescending()
+        let onlySpades = sortedCards.filter({ (card) -> Bool in
+            card.suit == Suit.spades
+        })
+ 
+        
         
         return false;
     }()
@@ -120,7 +125,18 @@ class Hand {
     
     init(cards: [Card]) {
         self.cards = cards
-       // print(isStraightFlush)
+        print(isStraightFlush)
+    }
+    
+    fileprivate func checkIfCardsInorder(cards: [Card]) -> Bool
+    {
+        if (cards.count < 5) {
+            return false
+        }
+        var prev = cards.first
+
+    
+        return true;
     }
     
 }
@@ -129,14 +145,12 @@ func getBestHand(cardString: [String]) {
     
     guard let cards = cardString.toCardsArray() else { return }
     
-    print(cards)
     let hand = Hand(cards: cards)
     
-    //print(hand.cards)
     
 }
 
-let straightFlush = ["A♠️", "K♠️", "Q♠️", "10♠️", "J♠️", "2♠️", "3♦️"]
+let straightFlush = ["A♠️", "J♠️", "Q♠️", "J♦️", "10♠️", "K♠️", "2♠️", "3♦️"]
 //let cards = ["8♦️", "3♠️", "5♦️", "8♣️", "J♦️", "3♦️", "2♦️"]
 
 getBestHand(cardString: straightFlush)
