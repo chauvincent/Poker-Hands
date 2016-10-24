@@ -16,85 +16,39 @@ import UIKit
  
 */
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                   Class Extensions
+ 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-enum Suit {
-    case clubs
-    case diamonds
-    case hearts
-    case spades
-    
-    init?(string: String) {
-        switch string {
-        case "♣️" : self = .clubs
-        case "♦️" : self = .diamonds
-        case "♥️" : self = .hearts
-        case "♠️" : self = .spades
-        default: return nil
-        }
-    }
-}
-
-enum Rank: Int {
-    // Ranked in ascending order
-    case two = 2, three, four, five, six, seven, eight, nine, ten
-    case jack
-    case queen
-    case king
-    case ace
-    
-    init?(string: String) {
-        if let rank = Int(string), rank >= 2 && rank <= 10 {
-            self = Rank.init(rawValue: rank)!
-        } else {
-            switch string {
-            case "J":
-                self = Rank.init(rawValue: 11)!
-            case "K":
-                self = Rank.init(rawValue: 12)!
-            case "Q":
-                self = Rank.init(rawValue: 13)!
-            case "A":
-                self = Rank.init(rawValue: 14)!
-            default:
-                return nil
-            }
-        }
-    }
-}
-
-struct Card {
-    let rank : Rank
-    let suit: Suit
-}
-
-extension Array {
-    // Convert string array of card rank and suit to Cards array
-    func toCardsArray() -> [Card]? {
-        var cards: [Card] = []
-        let allowedRank = NSCharacterSet(charactersIn: "1234567890AJKQ")
-        let allowedSuit = NSCharacterSet(charactersIn: "♥️♣️♦️♠️")
-        for element in self {
-            if element is String {
-                let rankChar = String(describing: element).components(separatedBy: allowedRank.inverted).first
-                let suitChar = String(describing: element).components(separatedBy: allowedSuit.inverted).last
-                guard let rank = Rank(string: rankChar!) else { return nil }
-                guard let suit = Suit(string: suitChar!) else { return nil }
-                cards.append(Card(rank: rank, suit: suit))
-            }
-        }
-        return cards
-    }
-}
-
-protocol TargetType {}
-extension Array: TargetType {}
-
-extension Collection where Self:TargetType, Iterator.Element == Card {
-    func sortCardsByRankAscending() -> [Card] { return sorted { l, r in l.rank.rawValue < r.rank.rawValue } }
-    func sortCardsByRankDescending() -> [Card] { return sorted { l, r in l.rank.rawValue > r.rank.rawValue } }
-    func sortCardsBySuitAscending() -> [Card] { return sorted { l, r in l.suit.hashValue < r.suit.hashValue } }
-    func sortCardsBySuitDescending() -> [Card] { return sorted { l, r in l.suit.hashValue > r.suit.hashValue } }
-}
+//extension Array {
+//    // Convert string array of card rank and suit to Cards array
+//    func toCardsArray() -> [Card]? {
+//        var cards: [Card] = []
+//        let allowedRank = NSCharacterSet(charactersIn: "1234567890AJKQ")
+//        let allowedSuit = NSCharacterSet(charactersIn: "♥️♣️♦️♠️")
+//        for element in self {
+//            if element is String {
+//                let rankChar = String(describing: element).components(separatedBy: allowedRank.inverted).first
+//                let suitChar = String(describing: element).components(separatedBy: allowedSuit.inverted).last
+//                guard let rank = Rank(string: rankChar!) else { return nil }
+//                guard let suit = Suit(string: suitChar!) else { return nil }
+//                cards.append(Card(rank: rank, suit: suit))
+//            }
+//        }
+//        return cards
+//    }
+//}
+//
+//protocol TargetType {}
+//extension Array: TargetType {}
+//
+//extension Collection where Self:TargetType, Iterator.Element == Card {
+//    func sortCardsByRankAscending() -> [Card] { return sorted { l, r in l.rank.rawValue < r.rank.rawValue } }
+//    func sortCardsByRankDescending() -> [Card] { return sorted { l, r in l.rank.rawValue > r.rank.rawValue } }
+//    func sortCardsBySuitAscending() -> [Card] { return sorted { l, r in l.suit.hashValue < r.suit.hashValue } }
+//    func sortCardsBySuitDescending() -> [Card] { return sorted { l, r in l.suit.hashValue > r.suit.hashValue } }
+//}
 
 // Straight Flush
 // Four of a kind
@@ -137,10 +91,13 @@ class HandChecker {
         } else if (clubStraightFlush != nil) {
             self.bestCards = clubStraightFlush
             found = true
+        } else {
+            return false
         }
         
         if (found) {
             self.handName = "Straight Flush"
+            return true
         }
         
         return false;
@@ -153,9 +110,6 @@ class HandChecker {
     }
     
     // Helpers
-    fileprivate func printBest(cards: [Card], handName: String) {
-        
-    }
     
     fileprivate func checkForStraight(cards: [Card]) -> [Card]? {
         if (cards.count < 5) {
@@ -191,11 +145,17 @@ class HandChecker {
     
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                Input and Caller Function
+ 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 func getBestHand(cardString: [String]) {
     
     guard let cards = cardString.toCardsArray() else { return }
     let hand = HandChecker(cards: cards)
-    
+    hand.handName
+    hand.bestCards
     
 }
 
