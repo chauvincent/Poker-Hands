@@ -21,6 +21,7 @@ public class HandChecker {
         
         var found = false;
         
+        // Check from highest hand to lowest
         if (spadeStraightFlush != nil) {
             self.bestCards = spadeStraightFlush
             found = true
@@ -46,6 +47,9 @@ public class HandChecker {
     }()
     
     public lazy var isFourOfAKind: Bool = {
+        print(self.cards)
+        
+        
         
         return false
     }()
@@ -89,7 +93,6 @@ public class HandChecker {
     /*       Initializer        */
     public init(cards: [Card]) {
         self.cards = cards
-        print(self.cards)
         self.setBestHand()
     }
     

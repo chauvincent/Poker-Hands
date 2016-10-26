@@ -31,7 +31,8 @@ func getBestHand(cardString: [String]) {
     getBestHand(cardString: straightFlush)
 */
 
-    let fourOfAKind = ["8♦️", "8♠️", "5♦️", "8♣️", "J♥️", "3♦️", "8♥️"]
+let fourOfAKind = ["8♦️", "8♠️", "5♦️", "8♣️", "J♥️", "3♦️", "8♥️"]
+getBestHand(cardString: fourOfAKind)
 
 //let cards = ["8♦️", "3♠️", "5♦️", "8♣️", "J♦️", "3♦️", "2♦️"]
 

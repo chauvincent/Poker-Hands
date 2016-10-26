@@ -4,6 +4,7 @@ import Foundation
 public extension Array {
 
     /* Convert string array of card rank and suit to Cards array */
+
     public func toCardsArray() -> [Card]? {
         var cards: [Card] = []
         let allowedRank = NSCharacterSet(charactersIn: "1234567890AJKQ")
@@ -22,6 +23,7 @@ public extension Array {
 }
 
 /* Sort Card Arrays based off Rank or Suit */
+
 public protocol TargetType {}
 extension Array: TargetType {}
 
