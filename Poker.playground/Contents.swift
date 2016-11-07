@@ -24,5 +24,3 @@ getBestHand(cardString: fourOfAKind)
 
 
 
-
-

@@ -47,9 +47,18 @@ public class HandChecker {
     }()
     
     public lazy var isFourOfAKind: Bool = {
-        print(self.cards)
+
+        var filteredPairs = self.cards.filterDuplicates(includeElement: {$0.rank != $1.rank})
         
-        
+        if (filteredPairs.count == 4) {
+
+            let nonPairs = self.cards.filterDuplicates(includeElement: {$0.rank == $1.rank}).sortCardsByRankDescending()
+            let allHighCards = nonPairs.filter({ $0.rank != filteredPairs[0].rank })
+            filteredPairs.append(allHighCards[0])
+            self.handName = "Four of a Kind"
+            self.bestCards = filteredPairs
+            return true
+        }
         
         return false
     }()
